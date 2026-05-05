@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"> <head>
+    <title>Trang chủ Quản lý</title> </head>
+<body>
+
+    <main layout:fragment="content">
+    
+        <h1 class="mb-4">Chào mừng đến trang Quản lý Quán ăn</h1>
+        
+        <div class="row" sec:authorize="isAuthenticated()">
+            <div class="col-md-12">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Bán hàng (Order)</h5>
+                        <p class="card-text">Xem sơ đồ bàn, gọi món, thanh toán.</p>
+                        <a th:href="@{/sales}" class="btn btn-light">Đi đến Sơ đồ bàn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" sec:authorize="hasRole('ADMIN')">
+            <div class="col-md-12">
+                <h3 class="text-muted">Chức năng Quản lý (Admin)</h3>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quản lý Danh mục</h5>
+                        <a th:href="@{/categories}" class="btn btn-primary">Đi đến</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quản lý Món ăn</h5>
+                        <a th:href="@{/dishes}" class="btn btn-primary">Đi đến</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quản lý Bàn</h5>
+                        <a th:href="@{/tables}" class="btn btn-primary">Đi đến</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" sec:authorize="hasRole('ADMIN')">
+             <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quản lý Người dùng</h5>
+                        <a th:href="@{/users}" class="btn btn-primary">Đi đến</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Báo cáo Doanh thu</h5>
+                        <a th:href="@{/reports/daily-revenue}" class="btn btn-light">Xem Báo cáo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </main> </body>
+</html>
