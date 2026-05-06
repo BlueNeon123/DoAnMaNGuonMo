@@ -39,6 +39,41 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
+// --- THÊM CHO TÍNH NĂNG ĐẶT ONLINE ---
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer; // Liên kết tới khách hàng đặt món
+
+    @Column(name = "shipping_address")
+    private String shippingAddress; // Địa chỉ giao hàng
+
+    @Column(name = "customer_phone")
+    private String customerPhone; // Số điện thoại giao hàng
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
     public Order() {
     }
 
