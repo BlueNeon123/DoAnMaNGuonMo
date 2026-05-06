@@ -23,11 +23,21 @@
 
             <div class="d-flex">
                 <div sec:authorize="isAuthenticated()" class="d-flex align-items-center">
-                    <span class="navbar-text text-light me-3">
-                        Chào, <strong sec:authentication="name">Tên Khách</strong>!
-                    </span>
-                    <a th:href="@{/customer-logout}" class="btn btn-outline-danger">Đăng xuất</a>
-                </div>
+    <span class="navbar-text text-light me-3">
+        Chào, <strong sec:authentication="name">Tài khoản</strong>!
+    </span>
+    
+    <!-- NÚT MỚI: Chỉ hiện lên nếu tài khoản đang đăng nhập có quyền ADMIN hoặc STAFF -->
+    <a sec:authorize="hasAnyRole('ADMIN', 'STAFF')" th:href="@{/admin}" class="btn btn-warning fw-bold me-2">
+        ⚙️ Về Dashboard
+    </a>
+    
+    <!-- Đăng xuất của Admin -->
+    <a sec:authorize="hasAnyRole('ADMIN', 'STAFF')" th:href="@{/logout}" class="btn btn-outline-light">Đăng xuất</a>
+    
+    <!-- Đăng xuất của Khách hàng -->
+    <a sec:authorize="hasRole('CUSTOMER')" th:href="@{/customer-logout}" class="btn btn-outline-danger">Đăng xuất</a>
+</div>
                 
                 <div sec:authorize="isAnonymous()">
                     <a th:href="@{/register}" class="btn btn-primary">Đăng ký (Khách)</a>

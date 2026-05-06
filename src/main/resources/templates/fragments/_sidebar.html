@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+
+    <div class="bg-light border-end" id="sidebar-wrapper" th:fragment="sidebar">
+        <div class="sidebar-heading border-bottom bg-dark text-light">Menu</div>
+        <div class="list-group list-group-flush">
+            
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+               th:href="@{/}"
+               sec:authorize="hasRole('ADMIN')">
+               🏠 Trang chủ (Dashboard)
+            </a>
+            
+            <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+               th:href="@{/sales}"
+               sec:authorize="isAuthenticated()">
+               🛒 Bán hàng (Order)
+            </a>
+            
+            <div sec:authorize="hasRole('ADMIN')">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+                   th:href="@{/categories}">
+                   📁 Quản lý Danh mục
+                </a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+                   th:href="@{/dishes}">
+                   🍜 Quản lý Món ăn
+                </a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+                   th:href="@{/tables}">
+                   🪑 Quản lý Bàn
+                </a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+                   th:href="@{/users}">
+                   🧑 Quản lý Người dùng
+                </a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" 
+                   th:href="@{/reports/daily-revenue}">
+                   📊 Báo cáo Doanh thu
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

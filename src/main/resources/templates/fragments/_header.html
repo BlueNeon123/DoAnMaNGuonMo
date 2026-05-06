@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="header">
+        <div class="container-fluid">
+            
+            <a class="navbar-brand" th:href="@{/admin}">Quản lý Quán ăn</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headerNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="headerNavbar">
+                
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    
+                    <li class="nav-item">
+                        <span class="navbar-text text-light me-3">
+                            Chào, <strong sec:authentication="name">Tên User</strong>
+                        </span>
+					
+                    </li>
+                    
+                    <li class="nav-item">
+                    <a th:href="@{/logout}" class="btn btn-outline-danger">Đăng xuất</a>
+                        
+                    </li>
+                    
+                </ul>
+            </div> </div>
+    </nav>
+
+</body>
+</html>

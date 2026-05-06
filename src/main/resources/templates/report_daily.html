@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Báo cáo Doanh thu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Báo cáo Doanh thu hàng ngày</h1>
+            <a th:href="@{/admin}" class="btn btn-secondary">Về Dashboard</a>
+        </div>
+        
+        <p>Chỉ bao gồm các hóa đơn đã thanh toán (PAID).</p>
+        
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Ngày</th>
+                    <th>Tổng Doanh thu</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="row : ${reportData}">
+                    <td th:text="${#temporals.format(row.date, 'dd-MM-yyyy')}"></td>
+                    
+                    <td th:text="${#numbers.formatDecimal(row.totalRevenue, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                </tr>
+                
+                <tr th:if="${#lists.isEmpty(reportData)}">
+                    <td colspan="2" class="text-center">Chưa có doanh thu.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
