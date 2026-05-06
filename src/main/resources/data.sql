@@ -33,3 +33,9 @@ VALUES (1, 'admin', 'Quản Lý', '$2a$10$3gA.L1N..bK561gJm/iLd.E.1s.g.NShO.bA.p
 
 INSERT INTO users (id, username, full_name, password, role) 
 VALUES (2, 'staff', 'Nhân Viên', '$2a$10$3gA.L1N..bK561gJm/iLd.E.1s.g.NShO.bA.pG0.jR0Y5.x.R.aC', 'STAFF');
+
+INSERT INTO users (id, username, full_name, password, role) 
+VALUES (3, 'admin2', 'Quản Lý', '123456', 'ADMIN');
+
+INSERT INTO users (id, username, full_name, password, role) 
+VALUES (4, 'staff2', 'Nhân Viên', '123456', 'STAFF');
