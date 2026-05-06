@@ -113,4 +113,46 @@ public class CartController {
         session.removeAttribute("cart");
         return "redirect:/?success=ordered";
     }
+    // 4. Tăng / Giảm số lượng 1 món trong giỏ
+    @GetMapping("/update/{dishId}")
+    public String updateQuantity(@PathVariable Integer dishId, @RequestParam String action, HttpSession session) {
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart != null) {
+            for (CartItem item : cart) {
+                if (item.getDishId().equals(dishId)) {
+                    if ("increase".equals(action)) {
+                        item.setQuantity(item.getQuantity() + 1); // Tăng 1
+                    } else if ("decrease".equals(action)) {
+                        if (item.getQuantity() > 1) {
+                            item.setQuantity(item.getQuantity() - 1); // Giảm 1
+                        } else {
+                            cart.remove(item); // Nếu đang là 1 mà bấm giảm nữa thì xóa luôn
+                        }
+                    }
+                    break;
+                }
+            }
+            session.setAttribute("cart", cart);
+        }
+        return "redirect:/cart"; // Cập nhật xong load lại trang giỏ hàng
+    }
+
+    // 5. Xóa 1 món khỏi giỏ hàng
+    @GetMapping("/remove/{dishId}")
+    public String removeItem(@PathVariable Integer dishId, HttpSession session) {
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart != null) {
+            // Xóa món có ID tương ứng
+            cart.removeIf(item -> item.getDishId().equals(dishId)); 
+            session.setAttribute("cart", cart);
+        }
+        return "redirect:/cart";
+    }
+
+    // 6. Hủy toàn bộ giỏ hàng (Quăng cái rổ)
+    @GetMapping("/clear")
+    public String clearCart(HttpSession session) {
+        session.removeAttribute("cart"); // Xóa rổ khỏi Session
+        return "redirect:/cart";
+    }
 }

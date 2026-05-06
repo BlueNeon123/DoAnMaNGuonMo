@@ -14,27 +14,46 @@
     </div>
 
     <div class="row" th:if="${cart != null and !cart.isEmpty()}">
-        <div class="col-md-8">
-            <table class="table table-bordered bg-white">
+        <<div class="col-md-8">
+            <table class="table table-bordered bg-white text-center align-middle">
                 <thead class="table-dark">
                     <tr>
                         <th>Tên món</th>
                         <th>Đơn giá</th>
                         <th>Số lượng</th>
                         <th>Thành tiền</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="item : ${cart}">
-                        <td th:text="${item.name}">Cơm sườn</td>
+                        <td class="fw-bold text-start" th:text="${item.name}">Cơm sườn</td>
                         <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} + ' đ'">30,000 đ</td>
-                        <td th:text="${item.quantity}">2</td>
+                        
+                        <td>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a th:href="@{'/cart/update/' + ${item.dishId} + '?action=decrease'}" class="btn btn-sm btn-outline-secondary px-2 fw-bold">-</a>
+                                <span class="mx-3 fw-bold" th:text="${item.quantity}">2</span>
+                                <a th:href="@{'/cart/update/' + ${item.dishId} + '?action=increase'}" class="btn btn-sm btn-outline-secondary px-2 fw-bold">+</a>
+                            </div>
+                        </td>
+                        
                         <td class="text-danger fw-bold" 
                             th:text="${#numbers.formatDecimal(item.subTotal, 0, 'COMMA', 0, 'POINT')} + ' đ'">60,000 đ</td>
+                            
+                        <td>
+                            <a th:href="@{'/cart/remove/' + ${item.dishId}}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn không muốn ăn món này nữa?');">🗑️</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-            <a th:href="@{/}" class="btn btn-secondary">&laquo; Chọn thêm món</a>
+            
+            <div class="d-flex justify-content-between mt-3">
+                <a th:href="@{/}" class="btn btn-secondary">&laquo; Chọn thêm món khác</a>
+                <a th:href="@{/cart/clear}" class="btn btn-outline-danger" onclick="return confirm('Xóa sạch giỏ hàng hiện tại?');">
+                    🗑️ Hủy giỏ hàng
+                </a>
+            </div>
         </div>
         
         <div class="col-md-4">
