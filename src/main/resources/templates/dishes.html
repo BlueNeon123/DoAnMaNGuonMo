@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Quản lý Món ăn</title>
+</head>
+<body>
+
+    <main layout:fragment="content">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Danh sách Món ăn</h1>
+            <a th:href="@{/admin}" class="btn btn-secondary">Về Dashboard</a>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <a th:href="@{/dishes/new}" class="btn btn-primary">Thêm mới Món ăn</a>
+            </div>
+            
+            <div class="col-md-8">
+                <form th:action="@{/dishes}" method="get" class="d-flex">
+                    <input class="form-control me-2" type="search" name="keyword" 
+                           th:value="${keyword}" placeholder="Nhập tên món ăn..." aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Tìm</button>
+                    <a th:href="@{/dishes}" class="btn btn-outline-secondary ms-2">Xóa</a>
+                </form>
+            </div>
+        </div>
+        
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên Món ăn</th>
+                    <th>Giá tiền</th>
+                    <th>Danh mục</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.isEmpty(dishes)}">
+                    <td colspan="5" class="text-center text-muted">Không tìm thấy món ăn nào.</td>
+                </tr>
+
+                <tr th:each="dish : ${dishes}">
+                    <td th:text="${dish.id}"></td>
+                    <td th:text="${dish.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(dish.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></td>
+                    <td th:text="${dish.category.name}"></td>
+                    <td>
+                        <a th:href="@{/dishes/edit/{id}(id=${dish.id})}" class="btn btn-success btn-sm">Sửa</a>
+                        <a th:href="@{/dishes/delete/{id}(id=${dish.id})}" class="btn btn-danger btn-sm" 
+                           onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </main>
+
+</body>
+</html>
