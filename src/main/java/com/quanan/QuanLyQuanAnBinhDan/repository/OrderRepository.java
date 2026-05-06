@@ -15,5 +15,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	           "GROUP BY CAST(o.orderTime AS LocalDate) " +
 	           "ORDER BY CAST(o.orderTime AS LocalDate) DESC")
 	    List<RevenueReportDTO> getDailyRevenueReport();
-    // Để trống
+    
+	List<Order> findByCustomerIsNotNullOrderByOrderTimeDesc();
 }

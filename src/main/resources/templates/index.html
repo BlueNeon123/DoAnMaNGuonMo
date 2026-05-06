@@ -51,7 +51,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quản lý Đơn hàng online</h5>
+                        <a th:href="@{/admin/orders}" class="btn btn-primary">Đi đến</a>
+                    </div>
+                </div>
+            </div>
         </div>
+        
         
         <div class="row" sec:authorize="hasRole('ADMIN')">
              <div class="col-md-4">
