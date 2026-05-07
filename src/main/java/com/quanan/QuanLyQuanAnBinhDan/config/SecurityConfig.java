@@ -98,7 +98,7 @@ public class SecurityConfig {
     @Order(3)
     public SecurityFilterChain publicSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .securityMatcher("/", "/menu", "/css/**", "/js/**", "/dish-images/**", "/cart/**")
+            .securityMatcher("/", "/menu", "/css/**", "/js/**", "/dish-images/**", "/cart/**", "/order-history")
             .authorizeHttpRequests(auth -> auth 
                 .requestMatchers("/**").permitAll() 
             )

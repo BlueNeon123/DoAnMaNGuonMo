@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.quanan.QuanLyQuanAnBinhDan.dto.RevenueReportDTO;
+import com.quanan.QuanLyQuanAnBinhDan.entity.Customer;
 import com.quanan.QuanLyQuanAnBinhDan.entity.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
@@ -17,4 +18,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	    List<RevenueReportDTO> getDailyRevenueReport();
     
 	List<Order> findByCustomerIsNotNullOrderByOrderTimeDesc();
+	List<Order> findByCustomerOrderByOrderTimeDesc(Customer customer);
 }
