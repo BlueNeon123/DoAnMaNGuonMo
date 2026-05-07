@@ -5,6 +5,7 @@
     <title>Lịch sử Đơn hàng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}"> </head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <body>
 
     <nav class="navbar navbar-expand-lg shadow-sm">
@@ -26,10 +27,10 @@
 
         <div th:if="${orders != null and !orders.isEmpty()}" class="row g-4">
             <div class="col-12" th:each="order : ${orders}">
-                <div class="card-custom">
+                <div class="card-custom" th:id="'invoice-' + ${order.id}">
                     <div class="card-header-custom p-3 d-flex justify-content-between align-items-center">
                         <span class="fs-5" th:text="'Mã đơn: #ORD' + ${order.id}">#ORD1</span>
-                        
+                        <button class="btn btn-sm btn-light fw-bold ms-3" th:onclick="'downloadPDF(' + ${order.id} + ')'"> Tải Hóa Đơn PDF</button>
                         <span th:if="${order.status == 'ONLINE_PENDING'}" class="badge bg-warning text-dark px-3 py-2">Chờ xác nhận</span>
                         <span th:if="${order.status == 'SHIPPING'}" class="badge bg-info text-dark px-3 py-2">Đang giao hàng</span>
                         <span th:if="${order.status == 'COMPLETED'}" class="badge bg-success px-3 py-2">Hoàn thành</span>
@@ -58,5 +59,23 @@
             </div>
         </div>
     </div>
+    <script>
+    function downloadPDF(orderId) {
+        // Tìm cái thẻ chứa thông tin đơn hàng đó
+        const element = document.getElementById('invoice-' + orderId);
+
+        // Cấu hình PDF
+        const opt = {
+            margin:       0.5,
+            filename:     'Hoa_Don_#ORD' + orderId + '.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        // Lệnh tải xuống
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
 </body>
 </html>

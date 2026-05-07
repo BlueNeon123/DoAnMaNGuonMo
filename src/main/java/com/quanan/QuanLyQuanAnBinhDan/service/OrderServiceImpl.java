@@ -40,8 +40,11 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public Order getOrCreateUnpaidOrderForTable(TableFood table) {
         // 1. Tìm trong CSDL xem có order nào "UNPAID" của bàn này không
+        // SỬA Ở ĐÂY: Thêm o.getTableFood() != null để chặn lỗi NullPointerException do các đơn Online gây ra
         Optional<Order> existingOrder = orderRepository.findAll().stream()
-                .filter(o -> o.getTableFood().getId().equals(table.getId()) && "UNPAID".equals(o.getStatus()))
+                .filter(o -> o.getTableFood() != null 
+                          && o.getTableFood().getId().equals(table.getId()) 
+                          && "UNPAID".equals(o.getStatus()))
                 .findFirst();
 
         if (existingOrder.isPresent()) {
